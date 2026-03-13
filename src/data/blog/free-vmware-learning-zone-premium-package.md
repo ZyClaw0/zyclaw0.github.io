@@ -29,6 +29,6 @@ You can find more about this promotion and register [here](https://mylearn.vmwar
 
 ---
 
-🏠
+
 
 ---

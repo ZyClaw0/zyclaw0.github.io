@@ -52,6 +52,6 @@ Hopefully, the installation process went well and you are now able to use, learn
 
 ---
 
-🏠
+
 
 ---

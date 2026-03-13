@@ -81,6 +81,6 @@ To overcome these challenges, we can use DKIM to ensure that forwarded emails do
 
 ---
 
-🔙 2️⃣ 🏠
+
 
 ---

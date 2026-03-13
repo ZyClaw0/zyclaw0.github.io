@@ -23,6 +23,6 @@ You can view my digital badge [here](https://www.youracclaim.com/users/mohammed-
 
 ---
 
-🏠
+
 
 ---

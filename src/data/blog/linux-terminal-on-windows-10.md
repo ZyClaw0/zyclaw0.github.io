@@ -27,6 +27,6 @@ When it prompts, select *“Restart Now”* or enter *“yes”*. After windows 
 
 ---
 
-🏠
+
 
 ---

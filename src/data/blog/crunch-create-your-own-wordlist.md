@@ -55,6 +55,6 @@ The tool comes in built on Kali Linux. Although, on Windows, you cannot run crun
 
 ---
 
-🏠
+
 
 ---

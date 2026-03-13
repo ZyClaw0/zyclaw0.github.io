@@ -25,6 +25,6 @@ I hope and believe that this is only the beginning of all the wonderful things t
 
 ---
 
-🔙 2️⃣ 🏠
+
 
 ---

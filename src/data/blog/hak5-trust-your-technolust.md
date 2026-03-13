@@ -24,6 +24,6 @@ Hak5 makes great videos about their tools, linux tips, weekly security news and 
 
 ---
 
-🏠
+
 
 ---

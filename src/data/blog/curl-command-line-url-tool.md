@@ -36,6 +36,6 @@ One can learn more about cURL using the manual page or from their [website](http
 
 ---
 
-🏠
+
 
 ---

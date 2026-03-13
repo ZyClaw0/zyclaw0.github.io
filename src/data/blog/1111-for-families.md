@@ -42,6 +42,6 @@ During the current situation where many are confined to our homes and working re
 
 ---
 
-🏠
+
 
 ---

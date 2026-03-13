@@ -67,6 +67,6 @@ If you have any suggestions or feedback, please send me an email [here](mailto:h
 
 ---
 
-🔙 2️⃣ 🏠
+
 
 ---

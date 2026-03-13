@@ -348,6 +348,6 @@ We can use DMARC along with SPF and DKIM to ensure that our emails are processed
 
 ---
 
-🔙 2️⃣ 🏠
+
 
 ---

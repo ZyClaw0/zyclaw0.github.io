@@ -29,6 +29,6 @@ Hope you find this site a good refresher to hone your Linux skills.
 
 ---
 
-🏠
+
 
 ---

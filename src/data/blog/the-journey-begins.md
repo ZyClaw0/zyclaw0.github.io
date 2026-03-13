@@ -32,6 +32,6 @@ I hope you find it helpful and fun!
 
 ---
 
-🔙 2️⃣ 🏠
+
 
 ---

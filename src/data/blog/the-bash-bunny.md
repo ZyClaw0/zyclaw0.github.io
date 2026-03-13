@@ -36,6 +36,6 @@ I hope this post helped you understand what the Bash Bunny is and gave you an op
 
 ---
 
-🏠
+
 
 ---

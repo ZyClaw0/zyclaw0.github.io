@@ -23,6 +23,6 @@ You can find more about the tool on their [website](https://www.nsa.gov/resource
 
 ---
 
-🏠
+
 
 ---

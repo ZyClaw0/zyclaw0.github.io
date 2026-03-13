@@ -106,6 +106,6 @@ Since DMARC can pass if either of SPF|DKIM passes, this could potentially allow 
 
 ---
 
-🔙 2️⃣ 🏠
+
 
 ---

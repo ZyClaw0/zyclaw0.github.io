@@ -22,6 +22,6 @@ Hope you find this lab helpful and learn more about these web application attack
 
 ---
 
-🏠
+
 
 ---

@@ -32,6 +32,6 @@ I decided to follow this technique as it will help me eliminate the extra steps 
 
 ---
 
-🏠
+
 
 ---

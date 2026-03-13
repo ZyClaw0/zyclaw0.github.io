@@ -38,6 +38,6 @@ If you are aiming for any of these certifications, then you can give it a go bef
 
 ---
 
-🏠
+
 
 ---

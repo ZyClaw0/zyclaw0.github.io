@@ -26,7 +26,7 @@ My favourites are:-
 You can find others below:-
 
 - [IT and Computer Science courses at Future Learn](https://www.futurelearn.com/subjects/it-and-computer-science-courses/coding-programming)
-- [ICS Security training by Homeland security](https://ics-cert-training.inl.gov/learn)
+- 
 - [Free Fortinet Certification NSE1 and NSE2](https://training.fortinet.com/)
 - [Free Vulnerabilty management training by Nessus](https://www.tenable.com/education/on-demand-courses)
 - [SAN's free cyber security course](https://www.cyberaces.org/courses.html)
@@ -40,6 +40,6 @@ I hope you find some of them useful and can use these platforms to learn somethi
 
 ---
 
-🏠
+
 
 ---

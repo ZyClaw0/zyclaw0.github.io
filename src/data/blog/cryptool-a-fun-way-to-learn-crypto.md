@@ -23,6 +23,6 @@ The application is available for [Windows](https://www.cryptool.org/en/cryptool2
 
 ---
 
-🏠
+
 
 ---

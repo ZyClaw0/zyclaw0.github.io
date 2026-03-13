@@ -31,6 +31,6 @@ This would list most of the subdomains for the provided domain. You can find mor
 
 ---
 
-🏠
+
 
 ---
