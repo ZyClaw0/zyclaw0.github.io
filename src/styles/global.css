@@ -10,8 +10,6 @@ html[data-theme="light"] {
   --accent: #0369a1;
   --muted: #e2e8f0;
   --border: #cbd5e1;
-  --link-color: #0369a1;
-  --link-hover: #0f172a;
 }
 
 html[data-theme="dark"] {
@@ -20,8 +18,6 @@ html[data-theme="dark"] {
   --accent: #00d4ff;
   --muted: #1e293b;
   --border: #334155;
-  --link-color: #00d4ff;
-  --link-hover: #ffffff;
 }
 
 @theme inline {
@@ -45,13 +41,7 @@ html[data-theme="dark"] {
   body {
     @apply flex min-h-svh flex-col bg-background font-app text-foreground selection:bg-accent/75 selection:text-background;
   }
-  a {
-    @apply outline-offset-1 outline-accent;
-    color: var(--link-color, var(--accent));
-  }
-  a:hover {
-    color: var(--link-hover, var(--foreground));
-  }
+  a,
   button {
     @apply outline-offset-1 outline-accent focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-dashed;
   }
