@@ -29,9 +29,3 @@ The exam duration was 3 hours, although one could finish ahead in time depending
 - Exam guide by Sly Gittens [(LinkedIn)](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiPoNHyucTuAhVxyzgGHYbSBPYQFjAEegQIAxAC&url=https%3A%2F%2Fwww.linkedin.com%2Fin%2Fslygittens&usg=AOvVaw3bdqP14oHoUpc2oVlMgkcS)
 
 I hope to continue learning and keep myself updated with the latest additions and updates in Microsoft 365. You can view my Acclaim badge [here](https://www.youracclaim.com/badges/aabd0d05-9f34-45a5-ba5f-a3c424ccd7eb/public_url)
-
----
-
-
-
----

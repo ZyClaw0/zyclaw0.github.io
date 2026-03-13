@@ -73,9 +73,3 @@ Implementing these protocols can seem daunting, but they are essential in protec
 ### Notion AI - in action
 
 [notion ai.mp4](Notion%20AI/notion_ai.mp4)
-
----
-
-
-
----

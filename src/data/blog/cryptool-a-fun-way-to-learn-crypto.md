@@ -20,9 +20,3 @@ A great application for newcomers as well as for the experienced to learn more a
 It is a great application for getting started into cryptography and cryptanalysis. Although the application might look a bit complicated at first, once you figure out how to put the pieces together, am sure you’ll have fun learning !
 
 The application is available for [Windows](https://www.cryptool.org/en/cryptool2), [Linux](https://www.cryptool.org/en/jcryptool) and [Mac](https://www.cryptool.org/en/jcryptool). They also offer an online portal which can be accessed [here](https://www.cryptool.org/en/cryptool-online). Hope you enjoy and learn more about cryptography using this free tool.
-
----
-
-
-
----

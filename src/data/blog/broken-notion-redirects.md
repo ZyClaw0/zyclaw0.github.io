@@ -39,9 +39,3 @@ I am not referring to the [book](https://www.goodreads.com/en/book/show/31562247
 ```
 
 Credits to [devarxify](https://github.com/devarxify) (and to the original unknown author) for the fix which you can find [here](https://github.com/stephenou/fruitionsite/issues/55#issuecomment-1978266460).
-
----
-
-
-
----

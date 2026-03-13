@@ -28,9 +28,3 @@ Sublist3r also provides various options that can be configured such as specifyin
 `python sublist3r.py -d domain.com -o output.txt`
 
 This would list most of the subdomains for the provided domain. You can find more about Sublist3r from [GitHub](https://github.com/aboul3la/Sublist3r).
-
----
-
-
-
----

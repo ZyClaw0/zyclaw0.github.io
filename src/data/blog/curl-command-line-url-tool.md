@@ -33,9 +33,3 @@ Bingo! Within a minute, all the 50 files were downloaded to the current working 
 I was quite happy to have found a use case and succeed in accomplishing it. It did save a plenty of time of navigating through each of those different pages to obtain the audio file.
 
 One can learn more about cURL using the manual page or from their [website](https://curl.haxx.se/). They also have a book *Everything Curl* which is available in [Web Version](https://ec.haxx.se/), [PDF](https://ec.haxx.se/), [Mobi](https://legacy.gitbook.com/download/mobi/book/bagder/everything-curl) (ebook) and [ePub](https://legacy.gitbook.com/download/epub/book/bagder/everything-curl) (ebook)
-
----
-
-
-
----

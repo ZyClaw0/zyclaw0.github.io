@@ -20,9 +20,3 @@ I am very grateful and happy to share that I have successfully completed my Comp
 I would suggest this certification to anyone who is interested in pursuing a career in the InfoSec industry as it gives you a wider perspective and delves deep on various technical topics.
 
 You can view my digital badge [here](https://www.youracclaim.com/users/mohammed-zanil/)
-
----
-
-
-
----

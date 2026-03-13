@@ -21,9 +21,3 @@ I recently decided to try out one of their products as I was surprised by its ca
 Hak5 makes great videos about their tools, linux tips, weekly security news and also has a metasploit playlist! I suggest all security geeks to have a look at their tools and their [shows](https://shop.hak5.org/pages/videos)! If you have already been playing with the bash bunny or the rubber ducky, let me know about your favourite payloads.
 
 7Ru57 y0uR 73(Hn01u57
-
----
-
-
-
----

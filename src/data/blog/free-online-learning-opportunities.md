@@ -37,9 +37,3 @@ You can find others below:-
 - [Sololearn - All Training](https://www.sololearn.com/Courses/)
 
 I hope you find some of them useful and can use these platforms to learn something new.
-
----
-
-
-
----

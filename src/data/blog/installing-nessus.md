@@ -49,9 +49,3 @@ After choosing the product plan, Nessus Essentials, in this case, you can use th
 <!-- Image: nessus05.png -->
 
 Hopefully, the installation process went well and you are now able to use, learn and play around with Nessus. In a future post, I will go through the various scanning options and settings available in the Nessus Essential Plan. If you have any feedback or find any silly errors, please do leave a comment or get in touch.
-
----
-
-
-
----

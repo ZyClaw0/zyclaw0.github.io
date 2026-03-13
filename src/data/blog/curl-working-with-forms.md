@@ -27,9 +27,3 @@ The server responds with a success message informing the data has been stored. I
 There are plenty of options with cookies including files, that are received from the server or a file that is being sent from the client side. In such cases, cookies can also be specified using the `-c` option. As mentioned earlier, going through the `man` page comes in handy when you want to learn explore more on a particular argument or flag options.
 
 Hope some of these comes in handy to you when working with forms and playing around with cURL.
-
----
-
-
-
----

@@ -33,9 +33,3 @@ The attack specified in the payload, firstly, could include the Bash Bunny being
 The Hak5 team has done so well with the documentation of the Bash Bunny making it easier for anyone to start playing around with the Bash Bunny as soon as possible. You can find the wiki here. They also encourage the community to develop payloads and share to their [Github](https://github.com/hak5/bashbunny-payloads) repository, where you can find many other payloads for the Bash Bunny.
 
 I hope this post helped you understand what the Bash Bunny is and gave you an opportunity to imagine the various attacks that could be possible from this USB device.
-
----
-
-
-
----

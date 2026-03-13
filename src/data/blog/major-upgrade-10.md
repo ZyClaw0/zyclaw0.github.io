@@ -22,9 +22,3 @@ If you read my previous post, I described how this Notion site ran into an erro
 The excitement of trying this new registrar and their UI for setting up my new domain had taken away my doubts and worries about migrating to a new name (hopefully 🤞 never again, but only time will tell).
 
 I hope and believe that this is only the beginning of all the wonderful things to come my way. Onwards and upwards 🚀
-
----
-
-
-
----

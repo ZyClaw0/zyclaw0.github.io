@@ -77,10 +77,3 @@ To overcome these challenges, we can use DKIM to ensure that forwarded emails do
     https://dmarcian.com/what-is-spf/
     
     https://www.cloudflare.com/en-gb/learning/dns/dns-records/dns-spf-record/
-    
-
----
-
-
-
----

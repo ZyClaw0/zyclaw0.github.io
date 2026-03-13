@@ -26,9 +26,3 @@ Free Access to Premium Subscription including troubleshooting, configuration, so
 Hands on labs and on-demand courses are not part of this promotion! You'll have to purchase the complete subscription to access them.
 
 You can find more about this promotion and register [here](https://mylearn.vmware.com/mgrReg/courses.cfm?ui=www_edu&a=one&id_subject=93848)
-
----
-
-
-
----

@@ -20,9 +20,3 @@ Ghidra is a Software Reverse Engineering (SRE) framework developed by the Nation
 Although the cyber security community is going to welcome the tool, the question of (“why”) NSA open sourcing such a tool will always remain unanswered.
 
 You can find more about the tool on their [website](https://www.nsa.gov/resources/everyone/ghidra/) and [GitHub](https://github.com/NationalSecurityAgency/ghidra).
-
----
-
-
-
----

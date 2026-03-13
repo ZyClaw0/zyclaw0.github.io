@@ -344,10 +344,3 @@ We can use DMARC along with SPF and DKIM to ensure that our emails are processed
     https://tools.socketlabs.com/dkim/generator
     
     https://easydmarc.com/tools/dkim-record-generator
-    
-
----
-
-
-
----

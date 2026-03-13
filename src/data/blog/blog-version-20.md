@@ -39,9 +39,3 @@ Special thanks/credits:
 
 - Hugo theme by [Zzo](https://zzodocs.netlify.com/docs/gettingstarted/quickstart/)
 - Hugo tutorial on YouTube by [Mike](https://www.youtube.com/playlist?list=PLLAZ4kZ9dFpOnyRlyS-liKL5ReHDcj4G3)
-
----
-
-
-
----

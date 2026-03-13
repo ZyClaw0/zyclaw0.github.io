@@ -64,9 +64,3 @@ This is comparatively a straightforward activity to enable 2FA on your email acc
 To keep this one short, I’ll write separate posts about the remaining three topics - SPF, DKIM and DMARC. I hope you got some value out of this post and it nudges you to take action to ensure your personal & professional emails remain secure and private! 
 
 If you have any suggestions or feedback, please send me an email [here](mailto:hello@zanil.me).
-
----
-
-
-
----

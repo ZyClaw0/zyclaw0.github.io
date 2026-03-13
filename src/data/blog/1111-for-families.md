@@ -39,9 +39,3 @@ If you're using IPv6, then you can configure using these settings:
     - Secondary DNS: `2606:4700:4700::1003`
 
 During the current situation where many are confined to our homes and working remotely, these settings can provide a better security and enhance your privacy online. You can find the original blog post from Cloudflare [here](https://blog.cloudflare.com/introducing-1-1-1-1-for-families/).
-
----
-
-
-
----

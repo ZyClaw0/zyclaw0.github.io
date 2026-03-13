@@ -29,9 +29,3 @@ So, what's next?
 In September of 2022, I helped my cousin bring her hobby to the internet through a simple workflow. She wanted a simple solution where write equals publish. I am a huge fan of the productivity app [Notion](https://www.notion.so/) and I knew they had an option to share a link directly to any Notion page. After a little bit of research, I found [Fruition](https://fruitionsite.com/) - a step-by-step guide on how to link custom domains to any notion page, free of cost. I followed the 4 step process and voila, the notion page was now linked to a custom domain. 
 
 I decided to follow this technique as it will help me eliminate the extra steps of building and pushing the code to a repository for the updates to take effect. Now, whenever I have to publish a new post, I simply have to add a new page in Notion and the changes reflect instantly on my blog. This also means that now I don’t need to have my laptop with me at all times to be able to publish any new blog post. Even with the Notion mobile app, I can write and publish posts. I hope and believe that this will enable me to maintain my blog and update it more often.
-
----
-
-
-
----

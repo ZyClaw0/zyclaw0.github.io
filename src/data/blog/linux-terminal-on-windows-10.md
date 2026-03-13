@@ -24,9 +24,3 @@ Before installing your favourite Linux distro, you have to enable a feature name
 **`Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux`**
 
 When it prompts, select *“Restart Now”* or enter *“yes”*. After windows restarts, open the windows store and search for Linux. The screen will read *“Linux on Windows? Totally.”* Click on *“Get the apps”* to find various flavours of Linux. Select the one you like the most and click install. After the installation is complete, open the app from the start menu. It will take a few minutes to setup the program and prompt for username and password for your new system. Enter your username and password to enjoy the power of Linux on Windows!
-
----
-
-
-
----

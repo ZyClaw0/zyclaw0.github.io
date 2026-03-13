@@ -52,9 +52,3 @@ If you wish to include any of these characters (% ^ @ ,) in your wordlist, you c
     
 
 The tool comes in built on Kali Linux. Although, on Windows, you cannot run crunch through command prompt, although, you can set it up by downloading the files from [SourceForge](https://sourceforge.net/projects/crunch-wordlist/) and installing them on a linux terminal.
-
----
-
-
-
----

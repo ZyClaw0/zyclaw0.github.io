@@ -102,10 +102,3 @@ Since DMARC can pass if either of SPF|DKIM passes, this could potentially allow 
     https://www.m3aawg.org/activities/training/dmarc-training-series
     
     https://datatracker.ietf.org/doc/html/rfc7489
-    
-
----
-
-
-
----
