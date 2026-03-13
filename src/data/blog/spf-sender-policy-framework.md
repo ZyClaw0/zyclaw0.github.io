@@ -41,7 +41,7 @@ The alternate option here is to use `~all` which specifies that any other IP add
 
 This is how it looks at the DNS settings of a domain:
 
-![spf.png](SPF%20-%20Sender%20Policy%20Framework/spf.png)
+<!-- Image: spf.png -->
 
 ### How does this work?
 

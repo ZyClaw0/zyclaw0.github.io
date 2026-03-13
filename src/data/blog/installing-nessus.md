@@ -26,27 +26,27 @@ Nessus provides an "Essential" plan that allows students and those starting thei
 
 Navigate to the registration page [here](https://www.tenable.com/products/nessus/nessus-essentials) and register for an activation code that will be sent to the email address provided. Upon successful registration, you'll be redirected to a page where you can download the installer as well. You can also directly navigate to the downloads page [here](https://www.tenable.com/downloads/nessus) and register for an activation code during the setup phase later as well. Ensure that you download the correct version listed on the downloads page. You can use the command `uname -a` to check your architecture. I downloaded the following version from my Kali machine:
 
-![nessus00.png](Installing%20Nessus/nessus00.png)
+<!-- Image: nessus00.png -->
 
 ### Step 2: Install and start the service
 
 Once the download is complete, navigate to the "Downloads" folder or to the location you saved the file. (Note: With Kali 2020.4, the default shell is based on zsh and not bash. It allows changing directory just by entering the path and does not require the cd command, although that would work as well). Next, use the `dpkg` command as the root user if you are not (which you should not be unless required). It is a quick install and does not take too long for it to complete. Once the installation is completed, you need to start the Nessus service using the `systemctl` command.
 
-![nessus01.png](Installing%20Nessus/nessus01.png)
+<!-- Image: nessus01.png -->
 
-![nessus02.png](Installing%20Nessus/nessus02.png)
+<!-- Image: nessus02.png -->
 
 ### Step 3: Navigate to the Nessus UI to activate and finish the installation
 
 By default, the Nessus UI is accessible on port 8834 and so, navigating to `https://localhost:8834/` should greet you with a welcome page and the setup prompt (Note: Since you are hosting this on a personal workspace and it doesn't have an SSL certificate by default, you would receive a warning which you may accept and continue).
 
-![nessus03.png](Installing%20Nessus/nessus03.png)
+<!-- Image: nessus03.png -->
 
-![nessus04.png](Installing%20Nessus/nessus04.png)
+<!-- Image: nessus04.png -->
 
 After choosing the product plan, Nessus Essentials, in this case, you can use the activation code and details received during Step 1 and complete the activation process. If at all you have not got an activation code yet or you did not register during Step 1 earlier, you can register for an activation code from here as well. After completing the registration process, you are ready to start using Nessus.
 
-![nessus05.png](Installing%20Nessus/nessus05.png)
+<!-- Image: nessus05.png -->
 
 Hopefully, the installation process went well and you are now able to use, learn and play around with Nessus. In a future post, I will go through the various scanning options and settings available in the Nessus Essential Plan. If you have any feedback or find any silly errors, please do leave a comment or get in touch.
 

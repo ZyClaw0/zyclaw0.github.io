@@ -19,11 +19,11 @@ Cloudflare recently published a new site that can check if your ISP is using sec
 
 There are interactive diagrams on the page where you can see how a BGP request would travel under normal conditions and if it is hijacked as shown below:
 
-![BGP1.png](Is%20BGP%20safe/BGP1.png)
+<!-- Image: BGP1.png -->
 
-![BGP2.png](Is%20BGP%20safe/BGP2.png)
+<!-- Image: BGP2.png -->
 
-![BGP3.png](Is%20BGP%20safe/BGP3.png)
+<!-- Image: BGP3.png -->
 
 ### How are they doing it?
 

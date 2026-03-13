@@ -20,11 +20,11 @@ I have decided to learn and have fun with a new tool called the Bash Bunny by [H
 
 In this introductory post, I'll explain what the Bash Bunny is. It looks like a normal USB device with an LED and a switch on it. You might be wondering why is there a switch on a normal USB? Well, that is one of the strengths of the Bash Bunny and it helps in automation or running scripts. *The Bash Bunny is a simple and powerful multi-function USB attack platform.* So what exactly can you do with the Bash Bunny?
 
-![bb.png](The%20Bash%20Bunny/bb.png)
+<!-- Image: bb.png -->
 
 The Bash Bunny emulates a combination of USB devices that computers inherently trust like gigabit ethernet, serial, flash storage and a keyboard. It also gives you a full linux terminal. When plugged in to a machine, you decide what the computer should recognise this device as. With a multi positional switch, you have three switch position to choose from including the configuration mode - AKA "arming mode", which is the the switch position closest to the USB head or sometimes also referred to as "Switch 3". Therefore, you have two positions "Switch 1" and "Switch 2" for carrying out your attack (**Note:-** You could also use the arming mode as an attack position, although it is only recommended for advanced users). Here's a diagram explaining the switch positions:
 
-![bb1.png](The%20Bash%20Bunny/bb1.png)
+<!-- Image: bb1.png -->
 
 While the Bash Bunny is plugged in using arming mode, it allows you to configure payloads for various  attacks. The arming mode also allows you to connect through serial and access the linux terminal of your Bash Bunny. A simple bunny script that is easy to read and understand, is saved in a text file in the corresponding switch folder (say, Switch 1), which  triggers the payload when the bunny is inserted with switch at respective position (in this case, switch 1 - farthest away from the USB head).
 

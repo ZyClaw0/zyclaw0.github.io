@@ -18,7 +18,7 @@ description: ""
 
 If you have visited my blog in the past few months, you would have come across a popup message with an error message. This has now been fixed!
 
-![blog error.png](Broken%20Notion%20Redirects/blog_error.png)
+<!-- Image: blog error.png -->
 
 ### What happened?
 

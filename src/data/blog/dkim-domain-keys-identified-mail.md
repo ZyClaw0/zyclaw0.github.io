@@ -34,7 +34,7 @@ Here is a sample DKIM record added in the DNS settings:
 
 This is how it looks at the DNS settings of a domain:
 
-![dkim.png](../../ZyRepo/DKIM%20-%20Domain%20Keys%20Identified%20Mail/dkim.png)
+<!-- Image: dkim.png -->
 
 ### How does this work?
 
