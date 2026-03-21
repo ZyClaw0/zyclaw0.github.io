@@ -26,20 +26,6 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
       <h1 class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl">
         Welcome to ZyBlog
       </h1>
-      <a
-        target="_blank"
-        href="/rss.xml"
-        class="inline-block"
-        aria-label="rss feed"
-        title="RSS Feed"
-      >
-        <IconRss
-          width={20}
-          height={20}
-          class="scale-125 stroke-accent stroke-3 rtl:-rotate-90"
-        />
-        <span class="sr-only">RSS Feed</span>
-      </a>
 
       <p>
         Hey, I'm Zanil. This is where I share what I'm learning — from cybersecurity to whatever tech thing has my attention. Nothing fancy, just notes from my journey. If you're into learning, building, or just curious — welcome.
@@ -47,8 +33,22 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
       {
         // only display if at least one social link is enabled
         SOCIALS.length > 0 && (
-          <div class="mt-4 flex max-sm:flex-col sm:items-center">
+          <div class="mt-4 flex max-sm:flex-col sm:items-center gap-2">
             <Socials />
+            <a
+              target="_blank"
+              href="/rss.xml"
+              class="inline-block p-2 hover:opacity-75"
+              aria-label="rss feed"
+              title="RSS Feed"
+            >
+              <IconRss
+                width={20}
+                height={20}
+                class="scale-125 stroke-accent stroke-3 rtl:-rotate-90"
+              />
+              <span class="sr-only">RSS Feed</span>
+            </a>
           </div>
         )
       }
@@ -88,7 +88,7 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
     }
 
     <div class="my-8 text-center">
-      <LinkButton href="/posts/">
+      <LinkButton href="/archives">
         All Posts
         <IconArrowRight class="inline-block rtl:-rotate-180" />
       </LinkButton>
