@@ -35,20 +35,19 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
         SOCIALS.length > 0 && (
           <div class="mt-4 flex max-sm:flex-col sm:items-center gap-2">
             <Socials />
-            <a
-              target="_blank"
+            <LinkButton
               href="/rss.xml"
-              class="inline-block p-2 hover:opacity-75"
-              aria-label="rss feed"
+              class="p-2 hover:rotate-6 sm:p-1"
               title="RSS Feed"
+              aria-label="rss feed"
             >
               <IconRss
-                width={20}
-                height={20}
-                class="scale-125 stroke-accent stroke-3 rtl:-rotate-90"
+                width={24}
+                height={24}
+                class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"
               />
               <span class="sr-only">RSS Feed</span>
-            </a>
+            </LinkButton>
           </div>
         )
       }

@@ -2,9 +2,9 @@ export const SITE = {
   website: "https://zyclaw0.github.io", // replace this with your deployed domain
   author: "ZyClaw0",
   profile: "",
-  desc: "Securing the digital frontier - cybersecurity insights, certifications, and tools.",
-  title: "Welcome to ZyBlog",
-  ogImage: "astropaper-og.jpg",
+  desc: "Welcome to ZyBlog",
+  title: "Zanil.me",
+  ogImage: "Z_.png",
   lightAndDarkMode: true,
   postPerIndex: 10,
   postPerPage: 10,

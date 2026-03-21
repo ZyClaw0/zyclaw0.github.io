@@ -18,11 +18,11 @@ Cloudflare recently published a new site that can check if your ISP is using sec
 
 There are interactive diagrams on the page where you can see how a BGP request would travel under normal conditions and if it is hijacked as shown below:
 
-<!-- Image: BGP1.png -->
+![BGP.png](Is%BGP%safe/BGP.png)
 
-<!-- Image: BGP2.png -->
+![BGP.png](Is%BGP%safe/BGP.png)
 
-<!-- Image: BGP3.png -->
+![BGP.png](Is%BGP%safe/BGP.png)
 
 ### How are they doing it?
 
@@ -37,9 +37,3 @@ BGP or **B**order **G**ateway **P**rotocol is one of the important routing proto
 Well, yes. If these BGPs are accidentally advertising wrong routes or if they are hijacked by malicious actors, then there could be severe consequences. There are a few cases of this happening in the past where there was a large scale outage of various websites. If it is hijacked, it could be for spying or performing a Denial Of Service (DOS) attack.
 
 It would be great when all the ISPs and other internet giants implements the necessary measures (a certification system called *RPKI* or **R**esource **P**ublic **K**ey **I**nfrastructure) to ensure BGP routing is secure. You can find more about RPKI from the Cloudflare blog [here](https://blog.cloudflare.com/rpki/). Until then, lets wait and hope there isn't another BGP leak on the internet anytime soon.
-
----
-
-🏠
-
----

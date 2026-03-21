@@ -21,7 +21,7 @@ The most common and useful features include minimum maximum length, pattern spec
 Create and save your wordlist to a file using the `-o` option. You can specify special patterns using `-t` option followed by any of these:
 
 `%` [percent] for numbers
-`^` [caret] for 33 symbols: ! @ # $ % ^ & * ( ) – _ + = ~ ` [ ] { } | \ : ; ” ‘ < > , . ? / [space]
+`^` [caret] for  symbols: ! @ # $ % ^ & * ( ) – _ + = ~ ` [ ] { } | \ : ; ” ‘ < > , . ? / [space]
 
 `@` [at] for lower case letters 
 
@@ -29,31 +29,25 @@ Create and save your wordlist to a file using the `-o` option. You can specify s
 
 If you wish to include any of these characters (% ^ @ ,) in your wordlist, you can do so by using the literal `-l` option [lowercase for L] along with `-t` option. Here are some examples:
 
-- **Wordlist with 8 characters, using 'abcdefgh'**
+- **Wordlist with  characters, using 'abcdefgh'**
     
-    `crunch 7 8 abcdefgh -o eight_char.txt`
-    In this example, crunch will generate a wordlist of 7 min characters, 8 maximum characters from these characters ‘abcdefgh’.
+    `crunch   abcdefgh -o eight_char.txt`
+    In this example, crunch will generate a wordlist of  min characters,  maximum characters from these characters ‘abcdefgh’.
     
 - **Wordlist with specific characters at specific positions**
     
-    `crunch 8 8 -t a%b^c@d, -o special.txt`
-    In this example, the characters a,b,c,d are fixed in those positions and will not change. Hence the output file will contain a1b!cadA upto a0b[space]czdZ
+    `crunch   -t a%b^c@d, -o special.txt`
+    In this example, the characters a,b,c,d are fixed in those positions and will not change. Hence the output file will contain ab!cadA upto ab[space]czdZ
     
 - **Wordlist with special characters**
     
-    `crunch 8 8 -t abcd,%@^ -l zzzz,z@z -o literals.txt`
+    `crunch   -t abcd,%@^ -l zzzz,z@z -o literals.txt`
     In the third example, special characters `,` and `@` will not be replaced with uppercase and lowercase letters, instead they’ll be treated as a literal character. Note that the length of `-t` and `-l` option should match and hence should be padded with some character (z in this case).
     
 - **Wordlist with permutations**
     
-    `crunch 1 1 -o possibilities.txt -p In Any Order`
-    In the last example, different permutation of the words In, Any, Order will be output to the file. In this case, output will contain 6 lines. Here, we specify the min and max length as 1 as they are mandatory options for crunch.
+    `crunch   -o possibilities.txt -p In Any Order`
+    In the last example, different permutation of the words In, Any, Order will be output to the file. In this case, output will contain  lines. Here, we specify the min and max length as  as they are mandatory options for crunch.
     
 
 The tool comes in built on Kali Linux. Although, on Windows, you cannot run crunch through command prompt, although, you can set it up by downloading the files from [SourceForge](https://sourceforge.net/projects/crunch-wordlist/) and installing them on a linux terminal.
-
----
-
-🏠
-
----

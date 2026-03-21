@@ -15,7 +15,7 @@ description: ""
 
 
 <aside>
-<img src="https://www.notion.so/icons/alert_gray.svg" alt="https://www.notion.so/icons/alert_gray.svg" width="40px" /> Email security is a topic I am currently working on for the blog. Since [Notion AI](https://www.notion.so/product/ai) went [public](https://www.notion.so/blog/notion-ai-is-here-for-everyone) a few days back, this is an attempt to see how well Notion AI can produce content. I must say, I am impressed! AI wrote this article in ~13 seconds - check out the screen recording at the end to see it in action.
+<img src="https://www.notion.so/icons/alert_gray.svg" alt="https://www.notion.so/icons/alert_gray.svg" width="px" /> Email security is a topic I am currently working on for the blog. Since [Notion AI](https://www.notion.so/product/ai) went [public](https://www.notion.so/blog/notion-ai-is-here-for-everyone) a few days back, this is an attempt to see how well Notion AI can produce content. I must say, I am impressed! AI wrote this article in ~ seconds - check out the screen recording at the end to see it in action.
 
 </aside>
 
@@ -25,7 +25,7 @@ Email has become an integral part of our personal and professional lives. Howeve
 
 ## Why Email Security Matters
 
-Email is a common tool for cybercriminals to spread malware, phishing scams and malicious links. These threats can cause significant damage to individuals and organizations. According to a report by Verizon, 94% of malware is delivered via email.
+Email is a common tool for cybercriminals to spread malware, phishing scams and malicious links. These threats can cause significant damage to individuals and organizations. According to a report by Verizon, % of malware is delivered via email.
 
 To protect against these threats, email security measures are essential. In this article, we will focus on three email security protocols: SPF, DKIM, and DMARC.
 
@@ -35,10 +35,10 @@ SPF is an email authentication protocol that allows email servers to verify that
 
 Implementing SPF is a simple process. Here are the steps:
 
-1. Log in to your domain’s DNS management page.
-2. Create a new TXT record.
-3. Enter the following text as the value of the TXT record: "v=spf1 include:{your domain} ~all"
-4. Save the changes.
+. Log in to your domain’s DNS management page.
+. Create a new TXT record.
+. Enter the following text as the value of the TXT record: "v=spf include:{your domain} ~all"
+. Save the changes.
 
 ## DKIM (DomainKeys Identified Mail)
 
@@ -46,9 +46,9 @@ DKIM is another email authentication protocol that adds a digital signature to e
 
 Implementing DKIM is a bit more complex than SPF. Here are the steps:
 
-1. Generate a public and private key pair using an online DKIM generator.
-2. Add the public key to your domain’s DNS records as a TXT record.
-3. Configure your email server to add the private key to outgoing emails.
+. Generate a public and private key pair using an online DKIM generator.
+. Add the public key to your domain’s DNS records as a TXT record.
+. Configure your email server to add the private key to outgoing emails.
 
 ## DMARC (Domain-based Message Authentication, Reporting, and Conformance)
 
@@ -56,10 +56,10 @@ DMARC is an email authentication protocol that builds on SPF and DKIM. It enable
 
 Implementing DMARC involves the following steps:
 
-1. Create a DMARC record in your domain’s DNS settings.
-2. Set the DMARC policy to “none” to start monitoring email traffic.
-3. Review DMARC reports to identify any unauthorized email traffic.
-4. Gradually increase the DMARC policy level to “quarantine” or “reject” to block unauthorized email traffic.
+. Create a DMARC record in your domain’s DNS settings.
+. Set the DMARC policy to “none” to start monitoring email traffic.
+. Review DMARC reports to identify any unauthorized email traffic.
+. Gradually increase the DMARC policy level to “quarantine” or “reject” to block unauthorized email traffic.
 
 ## Conclusion
 
@@ -71,10 +71,4 @@ Implementing these protocols can seem daunting, but they are essential in protec
 
 ### Notion AI - in action
 
-[notion ai.mp4](Notion%20AI/notion_ai.mp4)
-
----
-
-🏠
-
----
+[notion ai.mp](Notion%AI/notion_ai.mp)

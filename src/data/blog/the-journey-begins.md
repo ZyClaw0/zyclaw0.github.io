@@ -28,9 +28,3 @@ I would feel bad if you haven’t figured out my name by now ;) Anyways, I am Za
 This website is my journey in the InfoSec industry and life in general. I wish to share my learning experiences and other resources that I come across from where you could dig further on a particular topic (where all credits are due to their respective owners). I am not an expert, and therefore, mistakes are inevitable (if you do find some errors, please do let me know here [📧 email](mailto:hello@zanil.me))
 
 I hope you find it helpful and fun!
-
----
-
-🔙 2️⃣ 🏠
-
----

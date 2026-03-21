@@ -1,7 +1,7 @@
 ---
 title: "DKIM - Domain Keys Identified Mail"
-pubDatetime: 2024-01-01T00:00:00Z
-modDatetime: 2024-01-01T00:00:00Z
+pubDatetime: 2024-11-09T00:00:00Z
+modDatetime: 2024-11-09T00:00:00Z
 featured: false
 draft: false
 tags:
@@ -24,16 +24,16 @@ A single domain can have multiple DKIM values for all the email servers that are
 
 Here is a sample DKIM record added in the DNS settings:
 
-`v=DKIM1; k=rsa; p=QWE...< redacted >...RTY`
+`v=DKIM; k=rsa; p=QWE...< redacted >...RTY`
 
-| v=DKIM1 | This indicates that this record should be treated as DKIM record |
+| v=DKIM | This indicates that this record should be treated as DKIM record |
 | --- | --- |
 | k=rsa | This specifies the encryption scheme used |
 | p=QWE…RTY | This is the public key that can be used by any recipient |
 
 This is how it looks at the DNS settings of a domain:
 
-<!-- Image: dkim.png -->
+![dkim.png](../../ZyRepo/DKIM%-%Domain%Keys%Identified%Mail/dkim.png)
 
 ### How does this work?
 
@@ -41,22 +41,22 @@ DKIM works based on digital signatures which uses a public-private key pair. The
 
 When we send a new email, the email body is processed through a hash function to generate a hash value `bh`. The private key stored in the sender’s mail server is then used to create the digital signature (DKIM Signature) `b`, by signing the email header `h` and the hash value of the email body `bh`. This digital signature is appended as a header (DKIM header) and sent along with the email. By default, these headers are not visible to the user, however, they can be looked up by checking more details/show original headers option from the email client.
 
-At the receiving end, the email server will detect a DKIM signature `b` and look out for the public key published `p` in the DNS settings of the sending domain. The receiving server can use the same values `h` and `bh` present in the email header to generate the digital signature `b1`. If the comparison of these signatures `b & b1` succeed, it proves that the sending domain indeed has sent this message and it has not been modified during transit. If there has been any modifications, then the comparison of the DKIM signatures will not match with that of the received email and hence DKIM validation will fail.
+At the receiving end, the email server will detect a DKIM signature `b` and look out for the public key published `p` in the DNS settings of the sending domain. The receiving server can use the same values `h` and `bh` present in the email header to generate the digital signature `b`. If the comparison of these signatures `b & b` succeed, it proves that the sending domain indeed has sent this message and it has not been modified during transit. If there has been any modifications, then the comparison of the DKIM signatures will not match with that of the received email and hence DKIM validation will fail.
 
 ```jsx
 *** Message header from an email received in Proton Mail ***
 
-Authentication-Results: mail.protonmail.ch; dkim=pass (Good 1024 bit
-    rsa-sha256 signature) header.d=zanil.me header.i=hello@zanil.me
-    header.a=rsa-sha256
+Authentication-Results: mail.protonmail.ch; dkim=pass (Good  bit
+    rsa-sha signature) header.d=zanil.me header.i=hello@zanil.me
+    header.a=rsa-sha
 
-Dkim-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1731129908; s=zmail;
+Dkim-Signature: v=; a=rsa-sha; q=dns/txt; c=relaxed/relaxed; t=; s=zmail;
  d=zanil.me; i=hello@zanil.me;
  h=Date:Date:From:From:To:To:Message-Id:Message-Id:In-Reply-To:References:Subject:Subject:MIME-Version:Content-Type:Reply-To:Cc;
- bh=unyxlgKWoTHA9zpZeKRPtT9wCd2FUzrG3RDaIE23qnU=;
- b=lymVERssLiOaY53X6awl8KSyC1XBH8XacLOvrqoHaNJKEquQZF3ZYg7Vu/qiPjhw
- B35IaLPuTxcncGioBhghVhcexZPbjCwgTUma+6FSw0ZdRBgeW5+fqXuK5qQL1/+cxX0
- 88Z+lKPIHw4wE06rdSXP1ovHtkF+nYRFmyWwsYWY=
+ bh=unyxlgKWoTHAzpZeKRPtTwCdFUzrGRDaIEqnU=;
+ b=lymVERssLiOaYXawlKSyCXBHXacLOvrqoHaNJKEquQZFZYgVu/qiPjhw
+ BIaLPuTxcncGioBhghVhcexZPbjCwgTUma+FSwZdRBgeW+fqXuKqQL/+cxX
+ Z+lKPIHwwErdSXPovHtkF+nYRFmyWwsYWY=
 
 v = the DKIM version
 a = the signing algorithm
@@ -94,95 +94,95 @@ We can use DMARC along with SPF and DKIM to ensure that our emails are processed
         Return-Path: <hello@zanil.me>
         X-Original-To: xxxxxxxx@pm.me
         Delivered-To: xxxxxxxxx@pm.me
-        Authentication-Results: mail.protonmail.ch; dkim=pass (Good 1024 bit
-            rsa-sha256 signature) header.d=zanil.me header.i=hello@zanil.me
-            header.a=rsa-sha256
+        Authentication-Results: mail.protonmail.ch; dkim=pass (Good  bit
+            rsa-sha signature) header.d=zanil.me header.i=hello@zanil.me
+            header.a=rsa-sha
         Authentication-Results: mail.protonmail.ch; dmarc=none (p=none dis=none)
          header.from=zanil.me
         Authentication-Results: mail.protonmail.ch; spf=pass smtp.mailfrom=zanil.me
-        Authentication-Results: mail.protonmail.ch; arc=pass smtp.remote-ip=136.143.188.55
+        Authentication-Results: mail.protonmail.ch; arc=pass smtp.remote-ip=...
          arc.chain=:zohomail.com
-        Authentication-Results: mail.protonmail.ch; dkim=pass (1024-bit key) header.d=zanil.me
+        Authentication-Results: mail.protonmail.ch; dkim=pass (-bit key) header.d=zanil.me
          header.i=hello@zanil.me header.b="lymVERss"
-        Received: from sender4-of-o55.zoho.com (sender4-of-o55.zoho.com [136.143.188.55]) (using
-         TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-          key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256) (No
-         client certificate requested) by mailin029.protonmail.ch (Postfix) with ESMTPS id
-         4Xlklq11GYz9vNPY for <xxxxxxxxxx@pm.me>; Sat,
-          9 Nov 2024 05:25:10 +0000 (UTC)
+        Received: from sender-of-o.zoho.com (sender-of-o.zoho.com [...]) (using
+         TLSv. with cipher TLS_AES__GCM_SHA (/ bits)
+          key-exchange X server-signature RSA-PSS ( bits) server-digest SHA) (No
+         client certificate requested) by mailin.protonmail.ch (Postfix) with ESMTPS id
+         XlklqGYzvNPY for <xxxxxxxxxx@pm.me>; Sat,
+           Nov  :: + (UTC)
         Received: from mail.zoho.com by mx.zohomail.com with SMTP id
-         1731199011703.383113871145; Fri, 8 Nov 2024 21:25:07 -0800 (PST)
-        Arc-Seal: i=1; a=rsa-sha256; t=1731129908; cv=none;
+         .; Fri,  Nov  :: - (PST)
+        Arc-Seal: i=; a=rsa-sha; t=; cv=none;
           d=zohomail.com; s=zohoarc;
          
-         b=iHSALqrBudnSGMjPf30bWGNvAeaviqcSn4E91Pq7fMK5149agfkBRdKpuTya+iGmejBysc8gQuQPQ+lChHSk4BAhrDlNzjIW84qQHQK8AQ5jfzfpvjOXhWmDRUBIjGO0JEx9MLhLn82tJjJYGV3GCBnr0c0ve2pwx1/g6yQPqBQ=
-        Arc-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc;
-          t=1731129908;
+         b=iHSALqrBudnSGMjPfbWGNvAeaviqcSnEPqfMKagfkBRdKpuTya+iGmejByscgQuQPQ+lChHSkBAhrDlNzjIWqQHQKAQjfzfpvjOXhWmDRUBIjGOJExMLhLntJjJYGVGCBnrcvepwx/gyQPqBQ=
+        Arc-Message-Signature: i=; a=rsa-sha; c=relaxed/relaxed; d=zohomail.com; s=zohoarc;
+          t=;
          h=Content-Type:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To:Cc;
-          bh=unxlgKWoTHA9pZeKRPtT9wCdFUzrG3RDaIE23qnU=;
+          bh=unxlgKWoTHApZeKRPtTwCdFUzrGRDaIEqnU=;
          
-         b=IV/HroOeKYPFiPbgSvatIObK4s+Hv0DP8dl2tHJglJvxWHVcGt+wk0exiVxs+v13BjvGJaQMletPogz2z3zBLzAQSs18fZ02r06hYrdQGZonUEpd5Od4tEuK//CyOCbDoIu6akj2JuXb1TnDcWO/YOlq2znLdvH0R70=
-        Arc-Authentication-Results: i=1; mx.zohomail.com; dkim=pass
+         b=IV/HroOeKYPFiPbgSvatIObKs+HvDPdltHJglJvxWHVcGt+wkexiVxs+vBjvGJaQMletPogzzzBLzAQSsfZrhYrdQGZonUEpdOdtEuK//CyOCbDoIuakjJuXbTnDcWO/YOlqznLdvHR=
+        Arc-Authentication-Results: i=; mx.zohomail.com; dkim=pass
           header.i=zanil.me; spf=pass
           smtp.mailfrom=hello@zanil.me; dmarc=pass header.from=<hello@zanil.me>
-        Dkim-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1731129908; s=zmail;
+        Dkim-Signature: v=; a=rsa-sha; q=dns/txt; c=relaxed/relaxed; t=; s=zmail;
          d=zanil.me; i=hello@zanil.me;
          h=Date:Date:From:From:To:To:Message-Id:Message-Id:In-Reply-To:References:Subject:Subject:MIME-Version:Content-Type:Reply-To:Cc;
-         bh=unyxlgKWoTHA9zpZeKRPtT9wCd2FUzrG3RDaIE23qnU=;
-         b=lymVERssLiOaY53X6awl8KSyC1XBH8XacLOvrqoHaNJKEquQZF3ZYg7Vu/qiPjhw
-         B35IaLPuTxcncGioBhghVhcexZPbjCwgTUma+6FSw0ZdRBgeW5+fqXuK5qQL1/+cxX0
-         88Z+lKPIHw4wE06rdSXP1ovHtkF+nYRFmyWwsYWY=
-        Date: Sat, 09 Nov 2024 09:25:07 +0400
+         bh=unyxlgKWoTHAzpZeKRPtTwCdFUzrGRDaIEqnU=;
+         b=lymVERssLiOaYXawlKSyCXBHXacLOvrqoHaNJKEquQZFZYgVu/qiPjhw
+         BIaLPuTxcncGioBhghVhcexZPbjCwgTUma+FSwZdRBgeW+fqXuKqQL/+cxX
+         Z+lKPIHwwErdSXPovHtkF+nYRFmyWwsYWY=
+        Date: Sat,  Nov  :: +
         From: Zanil <hello@zanil.me>
         To: "Zanil" <xxxxxxxxxxx@pm.me>
-        Message-Id: <1930f621854.........6233342789585197541@zanil.me>
-        In-Reply-To: <1930f618ae4........8949966167675324805@zanil.me>
-        References: <1930f618ae4.........8949966167675324805@zanil.me>
+        Message-Id: <f.........@zanil.me>
+        In-Reply-To: <fae........@zanil.me>
+        References: <fae.........@zanil.me>
         Subject: Test email for Headers
-        Mime-Version: 1.0
+        Mime-Version: .
         Content-Type: text/html
         Importance: Medium
         User-Agent: Zoho Mail
         X-Mailer: Zoho Mail
-        X-Pm-Spam: 0yezJI6cihyJeYR3pi42biOpJJvbmsCIeINmhnVGd3b5JoiIjPFJUT9UUO9USyUsI1sI
-         mj3NXbJ3l7pjIlISBQiT0yi0ONwSiPJFUFRz8IiUFujAOMADwzITMTO5kk4OTyzIMNgj4sQDMlISBR
-         fT0FFJURlEDPlEViT6IwiMCilMUO0i02EjLCLfJViZGfWdda5Wm6IybyeQJ9EUk7jpIIlmtldWY2Xh
-         5UibWoiJOcR3hft2YmZul90ZVlW5dZ9Fwy8VdDM0IUxMDsyIMIlmztl2XGcy9FudG6CIdMwCipFWbF
-         bz8JfcHkW9bZwWitJiOWYslFndGvmNbJWpkVmb2XpZV0bmlW5dZ4Cy0IDMDMyI5jMS03BaIwiipFW
-         bFbz8JfcHvHJcYIi6w4CMDMxAM5MjTkOOgTz2IjMDOwgwiNCpWFbb9FjlRXY2Zy99teVl2RbbIC6h
-         1mIWajxQuYXt29YYlmufRWZmZulRZXkmVbLIjwwQjMjMxINrLmiHQcLJCtslWY2XhNVndG53JbX52
-         hiUWbiOQJ9NUkJ1RTT50TiwiIWbF9jbFlXRYZ92yw9Vemci9owIjyjULNADw3kzNjN1AE0NTsTMNI
-         BnfhB3cSb6I4wMCxDEMNIj0xkjTNyQM3Mj3TkOLJCyf5WdmbtFI6ZSlm5Id1yzk5WZXZiI19fXzCJ
-         LclmkiojIjNycYyZWz2EMZkj4YjZzMhhU0Mj1TQYI1n9
+        X-Pm-Spam: yezJIcihyJeYRpibiOpJJvbmsCIeINmhnVGdbJoiIjPFJUTUUOUSyUsIsI
+         mjNXbJlpjIlISBQiTyiONwSiPJFUFRzIiUFujAOMADwzITMTOkkOTyzIMNgjsQDMlISBR
+         fTFFJURlEDPlEViTIwiMCilMUOiEjLCLfJViZGfWddaWmIybyeQJEUkjpIIlmtldWYXh
+         UibWoiJOcRhftYmZulZVlWdZFwyVdDMIUxMDsyIMIlmztlXGcyFudGCIdMwCipFWbF
+         bzJfcHkWbZwWitJiOWYslFndGvmNbJWpkVmbXpZVbmlWdZCyIDMDMyIjMSBaIwiipFW
+         bFbzJfcHvHJcYIiwCMDMxAMMjTkOOgTzIjMDOwgwiNCpWFbbFjlRXYZyteVlRbbICh
+         mIWajxQuYXtYYlmufRWZmZulRZXkmVbLIjwwQjMjMxINrLmiHQcLJCtslWYXhNVndGJbX
+         hiUWbiOQJNUkJRTTTiwiIWbFjbFlXRYZywVemciowIjyjULNADwkzNjNAENTsTMNI
+         BnfhBcSbIwMCxDEMNIjxkjTNyQMMjTkOLJCyfWdmbtFIZSlmIdyzkWZXZiIfXzCJ
+         LclmkiojIjNycYyZWzEMZkjYjZzMhhUMjTQYIn
         X-Pm-Origin: external
-        X-Pm-Transfer-Encryption: TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+        X-Pm-Transfer-Encryption: TLSv. with cipher TLS_AES__GCM_SHA (/ bits)
         X-Pm-Content-Encryption: on-delivery
-        X-Pm-Spamscore: 0
+        X-Pm-Spamscore: 
         X-Pm-Spam-Action: inbox
         
         -----BEGIN PGP MESSAGE-----
         Version: ProtonMail
         
-        wV4DZE0JjZXC5MSAQdAqbe2/a/V8RrisTQ4kM1jhmNOrd9qEhBwkheo+N26
-        IjUwXNY1wc9htn4m0xJh8AjmHJLSWMyIYdWjw+VSIRPf9Icsa44GAS+IsMz
-        kwCRgYwP0sIfAaUzDI+J5mHng3o0/a6yNonzRTmhVQPY+tiA1euAFrm2qRu
-        m3zWiBZMLsNduiTqkIc2RQ+h6P7JaZPpFyXcRXsYGQMmyg+shQWv2gEFk1S
-        PQLLC9qmDgWBH38C/JQJPkXU2dI5MyWag8wPytoWFn/4hIKkUt3/IYOONLi
-        bxX9JMwhOtX+2cgN3vxqjljre6ZoGB3k4WVO9ebugEzCqnuBFqy05N9p1Za
-        r/wcDb23gECtnDTdOICMYCyYHZXD9lTu4wnon1uGdMhAsKc8Ayhmtxt4YYb
-        CNszHmgYFIMDNm8s3AKzyoTxqoIHWDGQXw+gSY/7zOMw+Kf6+uUEIFGoRWx
-        ThxQrlZ9ffnOnxFNO5PmVl48OtqhrpxDCXUaSZx7slSzQ1vIaq7soB4KeH6
-        bvVFhpoOZt+0fWKHglNBnToDeYl+5jbZ/mo1WmNU9Flj37iOwu/9738h3oD
-        Ys4T/QXy1Pt+ZczauJsyE4m6Faz/mU1LclapXbuPfxcq3gU28pYOInaUzbn
-        v0eQL/mMHE1Su/EzSBNOOMP/kAoyTRJL6U4ybkP4B+38cmdp9Vci7Q7N7st
-        cljzZk1BjQTlwSZ1PtbuYdT/pLi7A0SJHlVUksQGnBBGV4/oPBoqJIi5nK/
-        UDAD97QYs/3IM2aSoqaNOxutmSeOG6o5c6OgKgUU0Ia0/p8OkowLppztBIq
-        SvDoUg7nFC64uf58AXUefHz39Ccm36kezPE7LBqlLwKL5mgFoQGksyy/Gzb
-        bDy0zszmdflLGpKPHkC8QLgK2EFhnefu7xgmIhYNKWNAgAC7T5Mchk43pdo
-        e8mSXHe2IVVLRB/1KGEWoDJ66Rz+rfvqG/3oAhYBKfRCaZ93/gHSrdjMCoi
-        XZPKY2zUuCLW1qvsM7yJ2lBDaGXH6LmGIwJI6bliMFnoG9P1WexQ8zEjvfO
-        JNPR0uF7Es4UEzVVHkTHOErwidWV4Lh
-        =yDT0
+        wVDZEJjZXCMSAQdAqbe/a/VRrisTQkMjhmNOrdqEhBwkheo+N
+        IjUwXNYwchtnmxJhAjmHJLSWMyIYdWjw+VSIRPfIcsaGAS+IsMz
+        kwCRgYwPsIfAaUzDI+JmHngo/ayNonzRTmhVQPY+tiAeuAFrmqRu
+        mzWiBZMLsNduiTqkIcRQ+hPJaZPpFyXcRXsYGQMmyg+shQWvgEFkS
+        PQLLCqmDgWBHC/JQJPkXUdIMyWagwPytoWFn/hIKkUt/IYOONLi
+        bxXJMwhOtX+cgNvxqjljreZoGBkWVOebugEzCqnuBFqyNpZa
+        r/wcDbgECtnDTdOICMYCyYHZXDlTuwnonuGdMhAsKcAyhmtxtYYb
+        CNszHmgYFIMDNmsAKzyoTxqoIHWDGQXw+gSY/zOMw+Kf+uUEIFGoRWx
+        ThxQrlZffnOnxFNOPmVlOtqhrpxDCXUaSZxslSzQvIaqsoBKeH
+        bvVFhpoOZt+fWKHglNBnToDeYl+jbZ/moWmNUFljiOwu/hoD
+        YsT/QXyPt+ZczauJsyEmFaz/mULclapXbuPfxcqgUpYOInaUzbn
+        veQL/mMHESu/EzSBNOOMP/kAoyTRJLUybkPB+cmdpVciQNst
+        cljzZkBjQTlwSZPtbuYdT/pLiASJHlVUksQGnBBGV/oPBoqJIinK/
+        UDADQYs/IMaSoqaNOxutmSeOGocOgKgUUIa/pOkowLppztBIq
+        SvDoUgnFCufAXUefHzCcmkezPELBqlLwKLmgFoQGksyy/Gzb
+        bDyzszmdflLGpKPHkCQLgKEFhnefuxgmIhYNKWNAgACTMchkpdo
+        emSXHeIVVLRB/KGEWoDJRz+rfvqG/oAhYBKfRCaZ/gHSrdjMCoi
+        XZPKYzUuCLWqvsMyJlBDaGXHLmGIwJIbliMFnoGPWexQzEjvfO
+        JNPRuFEsUEzVVHkTHOErwidWVLh
+        =yDT
         -----END PGP MESSAGE-----
         ```
         
@@ -191,137 +191,137 @@ We can use DMARC along with SPF and DKIM to ensure that our emails are processed
         
         ```jsx
         Delivered-To: xxxxxxxxxxxxxx@gmail.com
-        Received: by 2002:a2e:8e35:0:b0:2ef:2373:f039 with SMTP id r21csp4319169ljk;
-                Fri, 8 Nov 2024 21:24:34 -0800 (PST)
-        X-Google-Smtp-Source: AGHT+IG65PnhMGDkYIuIJkyUn32Rm9H/iQlzJJ563WY8GkPlIB1vqH0/Gc3xzIIo1zBDwGy
-        X-Received: by 2002:a17:902:d50c:b0:20c:5cdd:aa7 with SMTP id d9443c01a336-2118359a74mr77406425ad.43.173112987170;
-                Fri, 08 Nov 2024 21:24:34 -0800 (PST)
-        ARC-Seal: i=2; a=rsa-sha256; t=1731129874; cv=pass;
-                d=google.com; s=arc-20240605;
-                b=GLcgGnjOVQF/ZGDG7/V5tj0o7Rolj3B/6wgEUrFiBrcHFrMRUjt0px7YebwuC2tG9
-                 ZC9OsFbvTaBxrI7KjctUNiyV2Uw/cqcnk4ckylXNsgnR4pmQb5OJpnxPYNuusFj4skf
-                 4y0kXMZ6/49fDT2heGu7TbWvEfdWPjlb4rZ320kfYGyQ1+o6WsCjZkAMQBvjGBVIJVO
-                 6ed3/RHAVGagGoZ+B4db8vaEIZaBooiaBh5KxGFutqJ7T27ufdljYRmucg6uFxgwUuJ
-                 +pRKp40GuJ5rtKGYtoQMJKIgUOl+cO3fbSnY4M+9z28QSC8m78yNPGFDHvKK9AjLarb
-                 7G6A==
-        ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        Received: by :ae:e::b:ef::f with SMTP id rcspljk;
+                Fri,  Nov  :: - (PST)
+        X-Google-Smtp-Source: AGHT+IGPnhMGDkYIuIJkyUnRmH/iQlzJJWYGkPlIBvqH/GcxzIIozBDwGy
+        X-Received: by :a::dc:b:c:cdd:aa with SMTP id dca-amrad..;
+                Fri,  Nov  :: - (PST)
+        ARC-Seal: i=; a=rsa-sha; t=; cv=pass;
+                d=google.com; s=arc-;
+                b=GLcgGnjOVQF/ZGDG/VtjoRoljB/wgEUrFiBrcHFrMRUjtpxYebwuCtG
+                 ZCOsFbvTaBxrIKjctUNiyVUw/cqcnkckylXNsgnRpmQbOJpnxPYNuusFjskf
+                 ykXMZ/fDTheGuTbWvEfdWPjlbrZkfYGyQ+oWsCjZkAMQBvjGBVIJVO
+                 ed/RHAVGagGoZ+BdbvaEIZaBooiaBhKxGFutqJTufdljYRmucguFxgwUuJ
+                 +pRKpGuJrtKGYtoQMJKIgUOl+cOfbSnYM+zQSCmyNPGFDHvKKAjLarb
+                 GA==
+        ARC-Message-Signature: i=; a=rsa-sha; c=relaxed/relaxed; d=google.com; s=arc-;
                 h=user-agent:importance:mime-version:subject:message-id:to:from:date
                  :dkim-signature;
-                bh=bQNp1nbj7vwOVkB94e7oMF05QyIduqhaSRMknt2AE=;
-                fh=LZ62SPn3wDDnrxJQVHIJ3DgbrC+VeVsVadztROd4k=;
-                b=frLPPv4tTmTCR1sdmBKO8mJ8PSZYyoiUPCNKCurV6viu6wrvN3uyhUa0KMefxTV2M
-                 88gJ6od6/SHVf804xUeAtAvxI3gGzl1fqosQXgjPKWg7CDOLkVhB2wpb8BbpEqaFbPD
-                 gEJTESOl3WoSqDL01ufpQklJz8BdufuAZiY1kIpM/f+Ejekc6wc5RQ5v4SYN+Fz7dwF
-                 sQ4H+QTbyWknggo/l0AkddGvxSyLh2t83X7IdZ9XoYN0F8k6E+ZvK9hifiW30xV8tDR
-                 uO2B14ixNTZoAdo4xcZmp9R9paCaUrztXnlvgefBI6QreR/W2tHutxbXc+4YpPWCeU
+                bh=bQNpnbjvwOVkBeoMFQyIduqhaSRMkntAE=;
+                fh=LZSPnwDDnrxJQVHIJDgbrC+VeVsVadztROdk=;
+                b=frLPPvtTmTCRsdmBKOmJPSZYyoiUPCNKCurVviuwrvNuyhUaKMefxTVM
+                 gJod/SHVfxUeAtAvxIgGzlfqosQXgjPKWgCDOLkVhBwpbBbpEqaFbPD
+                 gEJTESOlWoSqDLufpQklJzBdufuAZiYkIpM/f+EjekcwcRQvSYN+FzdwF
+                 sQH+QTbyWknggo/lAkddGvxSyLhtXIdZXoYNFkE+ZvKhifiWxVtDR
+                 uOBixNTZoAdoxcZmpRpaCaUrztXnlvgefBIQreR/WtHutxbXc+YpPWCeU
                  eFtA==;
                 dara=google.com
-        ARC-Authentication-Results: i=2; mx.google.com;
+        ARC-Authentication-Results: i=; mx.google.com;
                dkim=pass header.i=@zanil.me header.s=zmail header.b=HNXgMJDt;
-               arc=pass (i=1 spf=pass spfdomain=zanil.me dkim=pass dkdomain=zanil.me dmarc=pass fromdomain=zanil.me>);
-               spf=pass (google.com: domain of hello@zanil.me designates 136.143.188.55 as permitted sender) smtp.mailfrom=hello@zanil.me
+               arc=pass (i= spf=pass spfdomain=zanil.me dkim=pass dkdomain=zanil.me dmarc=pass fromdomain=zanil.me>);
+               spf=pass (google.com: domain of hello@zanil.me designates ... as permitted sender) smtp.mailfrom=hello@zanil.me
         Return-Path: <hello@zanil.me>
-        Received: from sender4-of-o55.zoho.com (sender4-of-o55.zoho.com. [136.143.188.55])
-                by mx.google.com with ESMTPS id d9443c01a7336-21177dcb83asi62683865ad.3.2024.11.21.24.33
+        Received: from sender-of-o.zoho.com (sender-of-o.zoho.com. [...])
+                by mx.google.com with ESMTPS id dca-dcbasiad......
                 for <xxxxxxxxxxxxx@gmail.com>
-                (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-                Fri, 08 Nov 2024 21:24:33 -0800 (PST)
-        Received-SPF: pass (google.com: domain of hello@zanil.me designates 136.143.188.55 as permitted sender) client-ip=136.0.0.55;
+                (version=TLS_ cipher=TLS_AES__GCM_SHA bits=/);
+                Fri,  Nov  :: - (PST)
+        Received-SPF: pass (google.com: domain of hello@zanil.me designates ... as permitted sender) client-ip=...;
         Authentication-Results: mx.google.com;
                dkim=pass header.i=@zanil.me header.s=zmail header.b=HNXgMJDt;
-               arc=pass (i=1 spf=pass spfdomain=zanil.me dkim=pass dkdomain=zanil.me dmarc=pass fromdomain=zanil.me>);
-               spf=pass (google.com: domain of hello@zanil.me designates 136.143.188.55 as permitted sender) smtp.mailfrom=hello@zanil.me
-        ARC-Seal: i=1; a=rsa-sha256; t=1731129872; cv=none; d=zohomail.com; s=zohoarc; b=GPtEeLXCOpxylV/K1g26hI94+tM/gq6Yed9bBBdwGNH4Vz2af6Do25OwU9PpmDfTiN6Ok/qb2cncgvP7A4TSN3/xwTRJUHRzaEtitdHDBiV3ES2YWHgxOoyN4lgJXSfp4siWNINtVHQxnfdy9S0U5GWh7vjNUNd+PU=
-        ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; t=1731129872; h=Content-Type:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To:Cc; bh=bQNp1nbj7vwOVkB94e7oMF05QyIlduqhaSRMknt02AE=; b=i+OEzK6dR0x7By+/bWdTExjb2mVx7y8t7RCUdtTMgbOTspxbkua7Lt/3r4m6JFKNKzFCYCezIivb3cMgnJI2KtJKVYwOeIaMpId2svj866JlS+3wiCLxdNlM7/1mS55ugd0JZ1Y4sWq9NtZPck81Oubz+kjCif6JF/zizNEdRlw=
-        ARC-Authentication-Results: i=1; mx.zohomail.com; dkim=pass
+               arc=pass (i= spf=pass spfdomain=zanil.me dkim=pass dkdomain=zanil.me dmarc=pass fromdomain=zanil.me>);
+               spf=pass (google.com: domain of hello@zanil.me designates ... as permitted sender) smtp.mailfrom=hello@zanil.me
+        ARC-Seal: i=; a=rsa-sha; t=; cv=none; d=zohomail.com; s=zohoarc; b=GPtEeLXCOpxylV/KghI+tM/gqYedbBBdwGNHVzafDoOwUPpmDfTiNOk/qbcncgvPATSN/xwTRJUHRzaEtitdHDBiVESYWHgxOoyNlgJXSfpsiWNINtVHQxnfdySUGWhvjNUNd+PU=
+        ARC-Message-Signature: i=; a=rsa-sha; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; t=; h=Content-Type:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To:Cc; bh=bQNpnbjvwOVkBeoMFQyIlduqhaSRMkntAE=; b=i+OEzKdRxBy+/bWdTExjbmVxytRCUdtTMgbOTspxbkuaLt/rmJFKNKzFCYCezIivbcMgnJIKtJKVYwOeIaMpIdsvjJlS+wiCLxdNlM/mSugdJZYsWqNtZPckOubz+kjCifJF/zizNEdRlw=
+        ARC-Authentication-Results: i=; mx.zohomail.com; dkim=pass
           header.i=zanil.me; spf=pass
           smtp.mailfrom=hello@zanil.me; dmarc=pass header.from=<hello@zanil.me>
-        DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1731129872; s=zmail; d=zanil.me; i=hello@zanil.me; h=Date:Date:From:From:To:To:Message-Id:Message-Id:Subject:Subject:MIME-Version:Content-Type:Reply-To:Cc; bh=bQNp17vwOVkB94e7oMF05QyIlduqhaSRMknt02AE=; b=HNXgMJDtFyHhBCBnRH1aV++XYKIS5Sn3ihM0XeAdxpWbItvxzbraEj/5D7Q+LHqj 2itMMNyIbhM6ZqWnm0fmbd4hnuqFFsB5T07dV2M3SahboakZxquBJYT2MG3xQHzr o8gZLQoaQWNRFbDgyIXgdRx49qxkDc9+Idek=
-        Received: from mail.zoho.com by mx.zohomail.com with SMTP id 1731129872149808.8317110682233; Fri, 8 Nov 2024 21:24:31 -0800 (PST)
-        Date: Sat, 09 Nov 2024 09:24:31 +0400
+        DKIM-Signature: v=; a=rsa-sha; q=dns/txt; c=relaxed/relaxed; t=; s=zmail; d=zanil.me; i=hello@zanil.me; h=Date:Date:From:From:To:To:Message-Id:Message-Id:Subject:Subject:MIME-Version:Content-Type:Reply-To:Cc; bh=bQNpvwOVkBeoMFQyIlduqhaSRMkntAE=; b=HNXgMJDtFyHhBCBnRHaV++XYKISSnihMXeAdxpWbItvxzbraEj/DQ+LHqj itMMNyIbhMZqWnmfmbdhnuqFFsBTdVMSahboakZxquBJYTMGxQHzr ogZLQoaQWNRFbDgyIXgdRxqxkDc+Idek=
+        Received: from mail.zoho.com by mx.zohomail.com with SMTP id .; Fri,  Nov  :: - (PST)
+        Date: Sat,  Nov  :: +
         From: Zanil <hello@zanil.me>
         To: Zanil <xxxxxxxxxxxx@gmail.com>
-        Message-Id: <1930f618ae4...........8949966167675324805@zanil.me>
+        Message-Id: <fae...........@zanil.me>
         Subject: Test email for Headers
-        MIME-Version: 1.0
-        Content-Type: multipart/alternative; boundary="----=_Part_1765856_977402747.1731129871076"
+        MIME-Version: .
+        Content-Type: multipart/alternative; boundary="----=_Part__."
         Importance: Medium
         User-Agent: Zoho Mail
         X-Mailer: Zoho Mail
         
-        ------=_Part_1765856_977402747.1731129871076
-        Content-Type: text/plain; charset="UTF-8"
+        ------=_Part__.
+        Content-Type: text/plain; charset="UTF-"
         Content-Transfer-Encoding: quoted-printable
         
         Test email for headers
         
-        Best Regards,=E2=80=8B
+        Best Regards,=E==B
         
-        Zanil=E2=80=8B
-        ------=_Part_1765856_977402747.1731129871076
-        Content-Type: text/html; charset="UTF-8"
+        Zanil=E==B
+        ------=_Part__.
+        Content-Type: text/html; charset="UTF-"
         Content-Transfer-Encoding: quoted-printable
         
-        <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html><head>=
-        <meta content=3D"text/html;charset=3DUTF-8" http-equiv=3D"Content-Type"></h=
-        ead><body ><div style=3D"font-family: Verdana, Arial, Helvetica, sans-serif=
-        ; font-size: 10pt;"><div><span class=3D"font" style=3D"font-family: 'courie=
-        r new',courier,monospace;"><span class=3D"size" style=3D"font-size: 16px">T=
-        est email for headers</span></span></div><div><span class=3D"font" style=3D=
-        "font-family: 'courier new',courier,monospace;"><span class=3D"size" style=
-        =3D"font-size: 16px"><br></span></span></div><div class=3D"zmail_signature_=
-        below"><div id=3D"" data-zbluepencil-ignore=3D"true" data-sigid=3D"87293270=
-        00000010003"><div><span class=3D"font" style=3D"font-family: 'courier new',=
-        courier,monospace;"><span class=3D"size" style=3D"font-size: 16px">Best Reg=
-        ards,=E2=80=8B</span><span class=3D"size" style=3D"font-size: 16px"><br></s=
-        pan></span></div><div><span class=3D"font" style=3D"font-family: 'courier n=
-        ew',courier,monospace;"><span class=3D"size" style=3D"font-size: 16px">Zani=
-        l=E2=80=8B</span></span><br></div></div></div></div><br></body></html>
-        ------=_Part_1765856_977402747.1731129871076--
+        <!DOCTYPE html PUBLIC "-//WC//DTD HTML . Transitional//EN"><html><head>=
+        <meta content=D"text/html;charset=DUTF-" http-equiv=D"Content-Type"></h=
+        ead><body ><div style=D"font-family: Verdana, Arial, Helvetica, sans-serif=
+        ; font-size: pt;"><div><span class=D"font" style=D"font-family: 'courie=
+        r new',courier,monospace;"><span class=D"size" style=D"font-size: px">T=
+        est email for headers</span></span></div><div><span class=D"font" style=D=
+        "font-family: 'courier new',courier,monospace;"><span class=D"size" style=
+        =D"font-size: px"><br></span></span></div><div class=D"zmail_signature_=
+        below"><div id=D"" data-zbluepencil-ignore=D"true" data-sigid=D"=
+        "><div><span class=D"font" style=D"font-family: 'courier new',=
+        courier,monospace;"><span class=D"size" style=D"font-size: px">Best Reg=
+        ards,=E==B</span><span class=D"size" style=D"font-size: px"><br></s=
+        pan></span></div><div><span class=D"font" style=D"font-family: 'courier n=
+        ew',courier,monospace;"><span class=D"size" style=D"font-size: px">Zani=
+        l=E==B</span></span><br></div></div></div></div><br></body></html>
+        ------=_Part__.--
         ```
         
     - iCloud Mail
         
         ```jsx
         Return-path: <hello@zanil.me>
-        Original-recipient: rfc822;<xxxxxxxxxxxx>@icloud.com
-        Received: from p00-icloudmta-smtpin-us-west-3a-10-percent-7 by p167-mailgateway-smtp-5f755bd4dd-5zhsg (mailgateway 2428B83) with SMTP id 4a252cc8-86f6-4cd6-9feb-50ed8883dc77 for <xxxxxxxxxxx@icloud.com>; Sat, 9 Nov 2024 05:25:18 GMT
+        Original-recipient: rfc;<xxxxxxxxxxxx>@icloud.com
+        Received: from p-icloudmta-smtpin-us-west-a--percent- by p-mailgateway-smtp-fbddd-zhsg (mailgateway B) with SMTP id acc-f-cd-feb-eddc for <xxxxxxxxxxx@icloud.com>; Sat,  Nov  :: GMT
         X-Apple-MoveToFolder: INBOX
         X-Apple-Action: MOVE_TO_FOLDER/INBOX
-        X-Apple-UUID: 4a252cc8-xxxx-xxxx-xxxx-50ed8883dc77
-        Received: from sender4-of-o55.zoho.com (sender4-of-o55.zoho.com [136.143.188.55]) by p00-icloudmta-smtpin-us-west-3a-10-percent-7.p00-icloudmta-smtpin-vip.icloud-mail-production.svc.kube.us-west-3a.k8s.cloud.apple.com (Postfix) with ESMTPS id 0DA1FC00110 for <xxxxxxxxxxxx@icloud.com>; Sat, 9 Nov 2024 05:25:16 +0000 (UTC)
-        X-ICL-Info: GAtbRFYDBVBFSlVHSwQFU...................w8bVl1TXA==
-        X-ICL-Score: 3.33203303432
+        X-Apple-UUID: acc-xxxx-xxxx-xxxx-eddc
+        Received: from sender-of-o.zoho.com (sender-of-o.zoho.com [...]) by p-icloudmta-smtpin-us-west-a--percent-.p-icloudmta-smtpin-vip.icloud-mail-production.svc.kube.us-west-a.ks.cloud.apple.com (Postfix) with ESMTPS id DAFC for <xxxxxxxxxxxx@icloud.com>; Sat,  Nov  :: + (UTC)
+        X-ICL-Info: GAtbRFYDBVBFSlVHSwQFU...................wbVlTXA==
+        X-ICL-Score: .
         Authentication-Results: bimi.icloud.com; bimi=skipped reason="insufficient dmarc"
         X-ARC-Info: policy=fail; arc=pass; id=mx.zohomail.com
         Authentication-Results: arc.icloud.com; arc=pass
         Authentication-Results: dmarc.icloud.com; dmarc=none header.from=zanil.me
         X-DMARC-Policy: none
-        X-DMARC-Info: pass=none; dmarc-policy=(nopolicy); s=u0; d=u0; pdomain=zanil.me
-        Authentication-Results: dkim-verifier.icloud.com; dkim=pass (1024-bit key) header.d=zanil.me header.i=hello@zanil.me header.b=lymVERss
-        Authentication-Results: spf.icloud.com; spf=pass (spf.icloud.com: domain of hello@zanil.me designates 136.143.188.55 as permitted sender) smtp.mailfrom=hello@zanil.me
-        Received-SPF: pass (spf.icloud.com: domain of hello@zanil.me designates 136.143.188.55 as permitted sender) receiver=spf.icloud.com; client-ip=136.x.x.55; helo=sender4-of-o55.zoho.com; envelope-from=hello@zanil.me
-        ARC-Seal: i=1; a=rsa-sha256; t=1731129908; cv=none; d=zohomail.com; s=zohoarc; b=iHSALqrBudnSGMjPf30bWGNvAeavPq7fMK5149agfkBRdKpuTya+iGmejByQPQ+lCh4QHQK8AQ5jfzfpvjOXhWmDRUBIjGO0JEx9MLhLn82tJjJYGV3GCBnr0c0ve2pwx1/g6yQPqBQ=
-        ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; t=1731129908; h=Content-Type:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To:Cc; bh=unyxlgKWoTHApZeKRtT9wC2FUrG3RDaIE23qnU=; b=IV/HroOeKYPFiPbgSvFatIObK4s+Hv0DP78dl2tHJglJqvxWHVcGt+wk0exJiVxs+v13BjvGJaQkMletPogz2z3zBKLzAQSs18fZ082r06hYrdoQGZonUEpd5Od4tEuK//CyOCbouajJXbTnDW/YOl2nLvHR70=
-        ARC-Authentication-Results: i=1; mx.zohomail.com; dkim=pass header.i=zanil.me; spf=pass smtp.mailfrom=hello@zanil.me; dmarc=pass header.from=<hello@zanil.me>
-        DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1731129908; s=zmail; d=zanil.me; i=hello@zanil.me; h=Date:Date:From:From:To:To:Message-Id:Message-Id:In-Reply-To:References:Subject:Subject:MIME-Version:Content-Type:Reply-To:Cc; bh=unyxlgKWoTHA9zpZeKRPtT9wCd2FUzrG3RDaIE23qnU=; b=lymVERssLiOaY53X6awl8KSyC1XBH8XacLOvrqoHaNJKEquQZF3ZYg7Vu/qiPjhw B35IaLPuTxcncGioBhghVhcexZPbjCwgTZdRBgeW5+fqXuK5qQL1/+cxX0 88Z+lKPIHw4wE06rdSXP1ovHtkF+nYRFmyWwsYWY=
-        Received: from mail.zoho.com by mx.zohomail.com with SMTP id 1731129907321703.3831138741145; Fri, 8 Nov 2024 21:25:07 -0800 (PST)
-        Date: Sat, 09 Nov 2024 09:25:07 +0400
+        X-DMARC-Info: pass=none; dmarc-policy=(nopolicy); s=u; d=u; pdomain=zanil.me
+        Authentication-Results: dkim-verifier.icloud.com; dkim=pass (-bit key) header.d=zanil.me header.i=hello@zanil.me header.b=lymVERss
+        Authentication-Results: spf.icloud.com; spf=pass (spf.icloud.com: domain of hello@zanil.me designates ... as permitted sender) smtp.mailfrom=hello@zanil.me
+        Received-SPF: pass (spf.icloud.com: domain of hello@zanil.me designates ... as permitted sender) receiver=spf.icloud.com; client-ip=.x.x.; helo=sender-of-o.zoho.com; envelope-from=hello@zanil.me
+        ARC-Seal: i=; a=rsa-sha; t=; cv=none; d=zohomail.com; s=zohoarc; b=iHSALqrBudnSGMjPfbWGNvAeavPqfMKagfkBRdKpuTya+iGmejByQPQ+lChQHQKAQjfzfpvjOXhWmDRUBIjGOJExMLhLntJjJYGVGCBnrcvepwx/gyQPqBQ=
+        ARC-Message-Signature: i=; a=rsa-sha; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; t=; h=Content-Type:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To:Cc; bh=unyxlgKWoTHApZeKRtTwCFUrGRDaIEqnU=; b=IV/HroOeKYPFiPbgSvFatIObKs+HvDPdltHJglJqvxWHVcGt+wkexJiVxs+vBjvGJaQkMletPogzzzBKLzAQSsfZrhYrdoQGZonUEpdOdtEuK//CyOCbouajJXbTnDW/YOlnLvHR=
+        ARC-Authentication-Results: i=; mx.zohomail.com; dkim=pass header.i=zanil.me; spf=pass smtp.mailfrom=hello@zanil.me; dmarc=pass header.from=<hello@zanil.me>
+        DKIM-Signature: v=; a=rsa-sha; q=dns/txt; c=relaxed/relaxed; t=; s=zmail; d=zanil.me; i=hello@zanil.me; h=Date:Date:From:From:To:To:Message-Id:Message-Id:In-Reply-To:References:Subject:Subject:MIME-Version:Content-Type:Reply-To:Cc; bh=unyxlgKWoTHAzpZeKRPtTwCdFUzrGRDaIEqnU=; b=lymVERssLiOaYXawlKSyCXBHXacLOvrqoHaNJKEquQZFZYgVu/qiPjhw BIaLPuTxcncGioBhghVhcexZPbjCwgTZdRBgeW+fqXuKqQL/+cxX Z+lKPIHwwErdSXPovHtkF+nYRFmyWwsYWY=
+        Received: from mail.zoho.com by mx.zohomail.com with SMTP id .; Fri,  Nov  :: - (PST)
+        Date: Sat,  Nov  :: +
         From: Zanil <hello@zanil.me>
         To: "zanil" <xxxxxxxxxxxxxx@icloud.com>
-        Message-Id: <1930f621854..............6233342789585197541@zanil.me>
-        In-Reply-To: <1930f618ae4.............8949966167675324805@zanil.me>
-        References: <1930f618ae4..............8949966167675324805@zanil.me>
+        Message-Id: <f..............@zanil.me>
+        In-Reply-To: <fae.............@zanil.me>
+        References: <fae..............@zanil.me>
         Subject: Test email for Headers
-        MIME-Version: 1.0
-        Content-Type: multipart/alternative; boundary="----=_Part_1765927_999308281.1731129907284"
+        MIME-Version: .
+        Content-Type: multipart/alternative; boundary="----=_Part__."
         Importance: Medium
         User-Agent: Zoho Mail
         X-Mailer: Zoho Mail
-        X-MANTSH: 1TFkXBxsZEQpZRBdhfgVNQXlnQ2NBQxEKWU0XbVhPUxEKWUkXGx9xGwYYE3cGGRo 1sHRmtIQ2lPU0h6H1hGHm9TQWgSREJ/RREKWFwXGQQaBB8aBRsaGgQSGAQeGAQYHBAbHhofGh  KQkUXbBlsQkNSQxl4AX8RCkJOF2FNcmkfBVtyRkdAEQpCTBdmQhxrEn0SGhNmHxEKQmwXZXwbQ FJJf1tTXF8RCkJAF2xlfxxwGF0SX14bEQpCWBdlWFNEYmRFS38SQREKTV4XBxsRClpYFxsRCnB nF29yAUF5aWlYGmUfEAcZGhEKcGgXYhkcEhtkQ0ZGQhoQBxkaEQpwaBdoU14FZ1weH1lHZhAHG RoRCnBoF2ddbl9IEl56TGAaEB4fEQpwaBdreGdDZmVTYh97aBAHGRoRCnBoF3pQRXtYfFpZXBw fEAcZGhEKcGgXbGVbXFwdXhhmeWcQBxkaEQpwaBduW3pPckRTaB9yTBAHGRoRCnBsF3pYQWZ6T RtsSHxMEAcZGhEKbX4XBxsRClhNF0sR
-        X-Proofpoint-GUID: sUEvx8QaqxxxxxxxxP5rl4EykB8nhUo
-        X-Proofpoint-ORIG-GUID: sUEvx8QaqxxxxxxxxP5rl4EykB8nhUo
-        X-Authority-Info: v=2.4 cv=GbhFnhXL c=1 sm=1 tr=0 ts=672ef23d b=1 cx=c_pps a=G4cWSVCzsDw7pAKK2tJJuw==:117 a=G4cWSVCzsDw7pAKK2tJJuw==:17 a=MKtGQD3n3ToA:10 a=1oJP67jkp3AA:10 a=VlfZXiiP6vEA:10 a=cnjT1I9rD8kA:10 a=pGLkceISAAAA:8 a=LWYV2F5HcfRsUxSdESYA:9 a=QEXdDO2ut3YA:10 a=dWUTr32mECy7YGHcCq4A:9 a=0R3V7lCDs-ke_eLf:21 a=_W_S_7VecoQA:10 a=7Pl22gAweY0a1G-1fIYD:22 a=Fsnnv8c_bScx1Du_P4IF:22
+        X-MANTSH: TFkXBxsZEQpZRBdhfgVNQXlnQNBQxEKWUXbVhPUxEKWUkXGxxGwYYEcGGRo sHRmtIQlPUhHhGHmTQWgSREJ/RREKWFwXGQQaBBaBRsaGgQSGAQeGAQYHBAbHhofGh  KQkUXbBlsQkNSQxlAXRCkJOFFNcmkfBVtyRkdAEQpCTBdmQhxrEnSGhNmHxEKQmwXZXwbQ FJJftTXFRCkJAFxlfxxwGFSXbEQpCWBdlWFNEYmRFSSQREKTVXBxsRClpYFxsRCnB nFyAUFaWlYGmUfEAcZGhEKcGgXYhkcEhtkQZGQhoQBxkaEQpwaBdoUFZweHlHZhAHG RoRCnBoFddblIElTGAaEBfEQpwaBdreGdDZmVTYhaBAHGRoRCnBoFpQRXtYfFpZXBw fEAcZGhEKcGgXbGVbXFwdXhhmeWcQBxkaEQpwaBduWpPckRTaByTBAHGRoRCnBsFpYQWZT RtsSHxMEAcZGhEKbXXBxsRClhNFsR
+        X-Proofpoint-GUID: sUEvxQaqxxxxxxxxPrlEykBnhUo
+        X-Proofpoint-ORIG-GUID: sUEvxQaqxxxxxxxxPrlEykBnhUo
+        X-Authority-Info: v=. cv=GbhFnhXL c= sm= tr= ts=efd b= cx=c_pps a=GcWSVCzsDwpAKKtJJuw==: a=GcWSVCzsDwpAKKtJJuw==: a=MKtGQDnToA: a=oJPjkpAA: a=VlfZXiiPvEA: a=cnjTIrDkA: a=pGLkceISAAAA: a=LWYVFHcfRsUxSdESYA: a=QEXdDOutYA: a=dWUTrmECyYGHcCqA: a=RVlCDs-ke_eLf: a=_W_S_VecoQA: a=PlgAweYaG-fIYD: a=Fsnnvc_bScxDu_PIF:
         ```
         
 - References
@@ -338,15 +338,8 @@ We can use DMARC along with SPF and DKIM to ensure that our emails are processed
     
     https://proton.me/blog/dkim-replay-attack-breakdown
     
-    https://support.sparkpost.com/momentum/4/using-dkim#using_dkim.generating
+    https://support.sparkpost.com/momentum//using-dkim#using_dkim.generating
     
     https://tools.socketlabs.com/dkim/generator
     
     https://easydmarc.com/tools/dkim-record-generator
-    
-
----
-
-🔙 2️⃣ 🏠
-
----

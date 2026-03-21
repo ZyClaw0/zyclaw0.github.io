@@ -27,16 +27,10 @@ Doing an online research for pursuing a security certification, I came across [S
 - CISSP
 - CSSA
 - CSSLP
-- MCSA (Windows Server 2016)
+- MCSA (Windows Server )
 - Network+
 - PMP
 - RHCSA
 - Security+
 
 If you are aiming for any of these certifications, then you can give it a go before you sit for your exam. Good luck with that certification!
-
----
-
-🏠
-
----
