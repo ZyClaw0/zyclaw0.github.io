@@ -15,7 +15,7 @@ description: ""
 
 If you have visited my blog in the past few months, you would have come across a popup message with an error message. This has now been fixed!
 
-![blog error.png](/images/blog error.png)
+![blog error.png](/images/blog_error.png)
 
 ### What happened?
 
