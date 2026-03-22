@@ -4,6 +4,7 @@ import { render } from "astro:content";
 import { slugifyStr } from "@/utils/slugify";
 import { getPath } from "@/utils/getPath";
 import Datetime from "./Datetime.astro";
+import IconClock from "@/assets/icons/IconClock.svg";
 
 type Props = {
   variant?: "h2" | "h3";
@@ -38,7 +39,14 @@ function getPreview(body: string, maxLength: number = 150): string {
   return text;
 }
 
+// Calculate read time (average reading speed: 200 words per minute)
+function getReadTime(body: string): number {
+  const words = body.trim().split(/\s+/).length;
+  return Math.ceil(words / 200);
+}
+
 const preview = description || getPreview(body || '');
+const readTime = getReadTime(body || '');
 ---
 
 <li class="my-6">
@@ -56,6 +64,12 @@ const preview = description || getPreview(body || '');
       {title}
     </Heading>
   </a>
-  <Datetime {...props} />
+  <div class="flex items-center gap-x-4 opacity-80">
+    <Datetime {...props} />
+    <span class="flex items-center gap-x-1 text-sm">
+      <IconClock class="inline-block size-4" />
+      {readTime} min read
+    </span>
+  </div>
   {preview && <p class="mt-2 text-sm text-foreground line-clamp-2">{preview}</p>}
 </li>
