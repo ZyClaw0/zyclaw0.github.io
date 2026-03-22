@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { render } from "astro:content";
 import { slugifyStr } from "@/utils/slugify";
 import { getPath } from "@/utils/getPath";
 import Datetime from "./Datetime.astro";
@@ -8,9 +9,36 @@ type Props = {
   variant?: "h2" | "h3";
 } & CollectionEntry<"blog">;
 
-const { variant: Heading = "h2", id, data, filePath } = Astro.props;
+const { variant: Heading = "h2", id, data, filePath, body } = Astro.props;
 
 const { title, description, ...props } = data;
+
+// Auto-extract preview from body content
+function getPreview(body: string, maxLength: number = 150): string {
+  // Remove markdown syntax and get plain text
+  let text = body
+    .replace(/!\[.*?\]\(.*?\)/g, '') // Remove images
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // Replace links with text
+    .replace(/[#*_`]/g, '') // Remove markdown formatting
+    .replace(/<[^>]+>/g, '') // Remove HTML tags
+    .replace(/\n+/g, ' ') // Replace newlines with spaces
+    .trim();
+  
+  // Get first sentence or up to maxLength
+  const firstSentence = text.split(/[.!?]/)[0];
+  if (firstSentence && firstSentence.length <= maxLength) {
+    return firstSentence + '.';
+  }
+  
+  // Truncate if needed
+  if (text.length > maxLength) {
+    return text.substring(0, maxLength).trim() + '...';
+  }
+  
+  return text;
+}
+
+const preview = description || getPreview(body || '');
 ---
 
 <li class="my-6">
@@ -29,5 +57,5 @@ const { title, description, ...props } = data;
     </Heading>
   </a>
   <Datetime {...props} />
-  <p>{description}</p>
+  {preview && <p class="mt-2 text-sm opacity-80 line-clamp-2">{preview}</p>}
 </li>
