@@ -57,17 +57,17 @@ One can use any of these services to validate their DMARC deployment
 
 - *EasyDMARC could not identify DKIM records and was showing an incorrect DMARC result. Therefore, use this service with caution.*
     
-    ![EasyDMARC1.png](/images/DMARC - Domain-based Message Authentication, Repor/EasyDMARC1.png)
+    ![EasyDMARC1.png](/images/DMARC---Domain-based-Message-Authentication,-Repor/EasyDMARC1.png)
     
 - *DMARCian was also unable to identify a DKIM record; nonetheless, the DMARC result was a pass.*
     
-    ![DMARCian1.png](/images/DMARC - Domain-based Message Authentication, Repor/DMARCian1.png)
+    ![DMARCian1.png](/images/DMARC---Domain-based-Message-Authentication,-Repor/DMARCian1.png)
     
     After setting up the DMARC records:
     
-    ![DMARCian2.png](/images/DMARC - Domain-based Message Authentication, Repor/DMARCian2.png)
+    ![DMARCian2.png](/images/DMARC---Domain-based-Message-Authentication,-Repor/DMARCian2.png)
     
-    ![DMARCian3.png](/images/DMARC - Domain-based Message Authentication, Repor/DMARCian3.png)
+    ![DMARCian3.png](/images/DMARC---Domain-based-Message-Authentication,-Repor/DMARCian3.png)
     
 - *In the above cases, I suspect that these services are searching for a specific dkim selector used by popular services like Gmail, Yahoo or Microsoft. Since I am using a 3rd party email service provider, it is unable to identify the selector & hence fails the DKIM checks*.
 
