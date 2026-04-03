@@ -271,36 +271,70 @@ const nextPost =
     const article = document.getElementById("article");
     if (!article) return;
 
-    const headings = Array.from(article.querySelectorAll("h1, h2, h3, h4, h5, h6, p"));
-    const refHeading = headings.find(h => h.textContent.trim().toLowerCase() === "references");
+    // Find the "References" heading/paragraph
+    const allElements = Array.from(article.querySelectorAll("h1, h2, h3, h4, h5, h6, p"));
+    const refHeading = allElements.find(
+      h => h.textContent.trim().toLowerCase() === "references"
+    );
     if (!refHeading) return;
 
-    // Gather all nodes between the heading and the end of the article
-    const nodesToWrap = [];
-    let sibling = refHeading.nextElementSibling;
-    while (sibling) {
-      nodesToWrap.push(sibling);
-      sibling = sibling.nextElementSibling;
+    // Walk the article DOM in document order, collecting reference links
+    // that come AFTER the References heading.
+    // We collect <p> elements that contain <a> links, and also standalone <a> elements.
+    // We stop when we encounter another heading (which means we're past refs).
+    const walker = document.createTreeWalker(article, NodeFilter.SHOW_ELEMENT);
+
+    // Skip past the refHeading itself
+    let passedRef = false;
+    const refsToWrap = [];
+
+    while (walker.nextNode()) {
+      const node = walker.currentNode;
+
+      // Mark when we've reached (and passed) the References heading
+      if (node === refHeading) {
+        passedRef = true;
+        continue;
+      }
+      if (!passedRef) continue;
+
+      const tag = node.tagName.toLowerCase();
+
+      // Stop at any other heading — we've gone past the references section
+      if (/^h[1-6]$/.test(tag)) break;
+
+      // Collect <p> elements that contain at least one <a> (these are ref links)
+      if (tag === "p" && node.querySelector("a")) {
+        refsToWrap.push(node);
+      }
+
+      // Collect standalone <a> elements not already inside a collected <p>
+      if (tag === "a") {
+        const alreadyWrapped = refsToWrap.some(
+          p => p === node || p.contains(node)
+        );
+        if (!alreadyWrapped) {
+          refsToWrap.push(node);
+        }
+      }
     }
 
-    if (nodesToWrap.length === 0) return;
+    if (refsToWrap.length === 0) return;
 
-    // Create <details> element
+    // Create <details>/<summary> wrapper
     const details = document.createElement("details");
     details.id = "references-details";
 
-    // Create <summary> element
     const summary = document.createElement("summary");
     summary.textContent = "References";
     summary.style.cssText =
       "cursor:pointer;list-style:none;display:inline-block;font-size:1.25em;font-weight:bold;";
-    // Remove default triangle and add custom chevron
     summary.style.borderBottom = "none";
 
     details.appendChild(summary);
-    nodesToWrap.forEach(node => details.appendChild(node));
+    refsToWrap.forEach(node => details.appendChild(node));
 
-    // Insert <details> right before the heading (then we remove the original heading)
+    // Replace the heading with the <details> element
     refHeading.parentNode.insertBefore(details, refHeading);
     refHeading.remove();
   }
