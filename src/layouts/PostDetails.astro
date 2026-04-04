@@ -266,77 +266,106 @@ const nextPost =
   }
   attachCopyButtons();
 
-  /* Make References section collapsible */
+  /* Make References section collapsible using native <details>/<summary> */
   function makeReferencesCollapsible() {
     const article = document.getElementById("article");
     if (!article) return;
 
-    // Find the "References" heading/paragraph
-    const allElements = Array.from(article.querySelectorAll("h1, h2, h3, h4, h5, h6, p"));
-    const refHeading = allElements.find(
-      h => h.textContent.trim().toLowerCase() === "references"
+    // Find the <p> whose text is exactly "References"
+    const allPs = Array.from(article.querySelectorAll("p"));
+    const refP = allPs.find(
+      p => p.textContent.trim().toLowerCase() === "references"
     );
-    if (!refHeading) return;
+    if (!refP) return;
 
-    // Walk the article DOM in document order, collecting reference links
-    // that come AFTER the References heading.
-    // We collect <p> elements that contain <a> links, and also standalone <a> elements.
-    // We stop when we encounter another heading (which means we're past refs).
-    const walker = document.createTreeWalker(article, NodeFilter.SHOW_ELEMENT);
-
-    // Skip past the refHeading itself
-    let passedRef = false;
-    const refsToWrap = [];
-
-    while (walker.nextNode()) {
-      const node = walker.currentNode;
-
-      // Mark when we've reached (and passed) the References heading
-      if (node === refHeading) {
-        passedRef = true;
-        continue;
-      }
-      if (!passedRef) continue;
-
-      const tag = node.tagName.toLowerCase();
-
-      // Stop at any other heading — we've gone past the references section
-      if (/^h[1-6]$/.test(tag)) break;
-
-      // Collect <p> elements that contain at least one <a> (these are ref links)
-      if (tag === "p" && node.querySelector("a")) {
-        refsToWrap.push(node);
-      }
-
-      // Collect standalone <a> elements not already inside a collected <p>
-      if (tag === "a") {
-        const alreadyWrapped = refsToWrap.some(
-          p => p === node || p.contains(node)
-        );
-        if (!alreadyWrapped) {
-          refsToWrap.push(node);
-        }
-      }
+    // Collect all sibling children AFTER the <p>References</p>
+    // (these are the <p><a>...</a></p> link elements)
+    const refChildren = [];
+    let sibling = refP.nextElementSibling;
+    while (sibling) {
+      refChildren.push(sibling);
+      sibling = sibling.nextElementSibling;
     }
 
-    if (refsToWrap.length === 0) return;
+    // If there's nothing after it, nothing to collapse
+    if (refChildren.length === 0) return;
 
-    // Create <details>/<summary> wrapper
+    // Find the containing <ul> or <ol> so we can replace the entire list
+    // (replacing just <li> with <details> would create invalid HTML inside <ul>)
+    let listEl = refP.parentElement;
+    while (listEl && listEl.tagName !== "UL" && listEl.tagName !== "OL" && listEl !== article) {
+      listEl = listEl.parentElement;
+    }
+
+    // Inject accordion styles once
+    if (!document.getElementById("references-accordion-style")) {
+      const style = document.createElement("style");
+      style.id = "references-accordion-style";
+      style.textContent = `
+#references-details {
+  margin-top: 1.5rem;
+  border: 1px solid var(--border, #cbd5e1);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+#references-details summary {
+  cursor: pointer;
+  padding: 0.5rem 0.75rem;
+  font-size: 1.25em;
+  font-weight: 700;
+  color: var(--accent, #0369a1);
+  background-color: var(--muted, #e2e8f0);
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  user-select: none;
+}
+#references-details summary::-webkit-details-marker { display: none; }
+#references-details summary::before {
+  content: '▸';
+  display: inline-block;
+  transition: transform 0.2s ease;
+  font-size: 0.85em;
+  flex-shrink: 0;
+}
+#references-details[open] summary::before { transform: rotate(90deg); }
+#references-details summary:hover { opacity: 0.85; }
+#references-details > p {
+  padding: 0.25rem 0.75rem;
+  margin: 0;
+}
+#references-details > p a { word-break: break-all; }
+#references-details[open] > :not(summary) {
+  animation: refAccordionDown 0.2s ease forwards;
+}
+@keyframes refAccordionDown {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}`;
+      document.head.appendChild(style);
+    }
+
+    // Build <details><summary>References</summary>...links...</details>
     const details = document.createElement("details");
     details.id = "references-details";
 
     const summary = document.createElement("summary");
     summary.textContent = "References";
-    summary.style.cssText =
-      "cursor:pointer;list-style:none;display:inline-block;font-size:1.25em;font-weight:bold;";
-    summary.style.borderBottom = "none";
 
     details.appendChild(summary);
-    refsToWrap.forEach(node => details.appendChild(node));
+    refChildren.forEach(child => details.appendChild(child));
 
-    // Replace the heading with the <details> element
-    refHeading.parentNode.insertBefore(details, refHeading);
-    refHeading.remove();
+    // Replace the entire parent (e.g. <ul>) with the <details> element
+    if (!listEl || listEl === article) {
+      listEl = refP.parentElement || article;
+      const fragment = document.createDocumentFragment();
+      fragment.appendChild(details);
+      refP.parentNode.insertBefore(fragment, refP);
+      refP.remove();
+    } else {
+      listEl.replaceWith(details);
+    }
   }
   makeReferencesCollapsible();
 
